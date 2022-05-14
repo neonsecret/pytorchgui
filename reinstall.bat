@@ -1,5 +1,5 @@
-pip uninstall --yes ryvencore
+pip uninstall --yes pytorchgui
 rmdir /s /q build
 rmdir /s /q dist
-rmdir /s /q ryvencore.egg-info
+rmdir /s /q pytorchgui.egg-info
 python setup.py install

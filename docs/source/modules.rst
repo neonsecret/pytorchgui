@@ -1,7 +1,7 @@
-ryvencore
+pytorchgui
 =========
 
 .. toctree::
    :maxdepth: 2
 
-   ryvencore
+   pytorchgui

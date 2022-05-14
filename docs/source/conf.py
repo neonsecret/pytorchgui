@@ -14,17 +14,17 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
-from ryvencore import *
+from pytorchgui import *
 from importlib.metadata import metadata
 
 # -- Project information -----------------------------------------------------
 
-project = 'ryvencore'
+project = 'pytorchgui'
 copyright = '2021, Leon Thomm'
 author = 'Leon Thomm'
 
 # The full version, including alpha/beta/rc tags
-release = f"v{ metadata('ryvencore')['version'] }"
+release = f"v{ metadata('pytorchgui')['version'] }"
 version = release
 
 # -- General configuration ---------------------------------------------------

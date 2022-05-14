@@ -5,33 +5,33 @@
 
 Python backend for graph-based processing, designed for flow-based/node-based visual scripting editors. It is the backbone of the [Ryven](https://github.com/leon-thomm/Ryven) project, but it can be used for other applications as well.
 
-If you are not already familiar with flow-based visual scripting and are looking for a specification, see [here](https://leon-thomm.github.io/ryvencore-qt/).
+If you are not already familiar with flow-based visual scripting and are looking for a specification, see [here](https://leon-thomm.github.io/pytorchgui-qt/).
 
 ### Installation
 
 ```
-pip install ryvencore
+pip install pytorchgui
 ```
 
 or from sources:
 ```
-git clone https://github.com/leon-thomm/ryvencore
-cd ryvencore
+git clone https://github.com/leon-thomm/pytorchgui
+cd pytorchgui
 pip install .
 ```
 
 ### Dependencies
 
-None! ryvencore runs completely on standard python modules, no additional libraries required, which makes it very compatible.
+None! pytorchgui runs completely on standard python modules, no additional libraries required, which makes it very compatible.
 
 <!-- *I am therefore thinking about extending the implementation to compile with Cython. While the overhead produced by the internal graph representation compared to only executing python code specified in the nodes' `update_event` does not dominate, efficient Cython support might lead to speedup of another ~20%-40%.* -->
 
 ### Usage
 
-Using ryvencore directly to run projects made with ryvencore-based editors, the following code example gives some intuition about the process:
+Using pytorchgui directly to run projects made with pytorchgui-based editors, the following code example gives some intuition about the process:
 
 ```python
-import ryvencore as rc
+import pytorchgui as ptgui
 import json
 import sys
 
@@ -45,13 +45,13 @@ if __name__ == '__main__':
         f.close()
     except FileNotFoundError:
         sys.exit(f'could not open file {fpath}')
-    
+
     # read project file
     with open(fpath, 'r') as f:
         project: dict = json.loads(f.read())
-    
-    # run ryvencore
-    session = rc.Session()
+
+    # run pytorchgui
+    session = ptgui.Session()
     session.load(project)
 
     # and now we can manually access all components, for example:
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     my_node.update()
 ```
 
-You can also use it for other purposes. A mostly auto-generated documentation is available [here](https://leon-thomm.github.io/ryvencore/).
+You can also use it for other purposes. A mostly auto-generated documentation is available [here](https://leon-thomm.github.io/pytorchgui/).
 
 ### Main Features
 
@@ -71,6 +71,6 @@ You can also use it for other purposes. A mostly auto-generated documentation is
 - **powerful nodes system** which lets you do anything, simple and unrestricted
 - **dynamic nodes registration mechanism** to register and unregister nodes at runtime
 - **actions system for nodes**
-- **data *and* exec flow support** - unlike lots of other solutions out there, ryvencore supports exec flows
+- **data *and* exec flow support** - unlike lots of other solutions out there, pytorchgui supports exec flows
 
-For a more detailed overview, see the [docs](https://leon-thomm.github.io/ryvencore-qt/#/features).
+For a more detailed overview, see the [docs](https://leon-thomm.github.io/pytorchgui-qt/#/features).
