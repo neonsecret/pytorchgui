@@ -46,7 +46,6 @@ class Node(RC_Node, QObject):
         }
         return actions
 
-
     def set_special_actions_data(self, actions_data):
         actions = {}
         for key in actions_data:
@@ -62,7 +61,6 @@ class Node(RC_Node, QObject):
                 actions[key] = self.set_special_actions_data(actions_data[key])
         return actions
 
-
     def get_special_actions_data(self, actions):
         cleaned_actions = actions.copy()
         for key in cleaned_actions:
@@ -77,16 +75,14 @@ class Node(RC_Node, QObject):
                 cleaned_actions[key] = v
         return cleaned_actions
 
-
     def get_extended_default_actions(self):
         actions_dict = self.default_actions.copy()
         for index in range(len(self.inputs)):
             inp = self.inputs[index]
             if inp.type_ == 'exec':
-                actions_dict['exec input '+str(index)] = {'method': self.action_exec_input,
-                                                          'data': {'input index': index}}
+                actions_dict['exec input ' + str(index)] = {'method': self.action_exec_input,
+                                                            'data': {'input index': index}}
         return actions_dict
-
 
     def action_exec_input(self, data):
         self.update(data['input index'])
@@ -107,7 +103,7 @@ class Node(RC_Node, QObject):
         if insert is not None:
 
             if insert < 0:
-                index = insert-1
+                index = insert - 1
             else:
                 index = insert
 
@@ -123,7 +119,7 @@ class Node(RC_Node, QObject):
         if insert is not None:
 
             if insert < 0:
-                index = insert-1
+                index = insert - 1
             else:
                 index = insert
 
@@ -149,7 +145,7 @@ class Node(RC_Node, QObject):
         if insert is not None:
 
             if insert < 0:
-                index = insert-1
+                index = insert - 1
             else:
                 index = insert
 
@@ -194,24 +190,20 @@ class Node(RC_Node, QObject):
             self.main_widget().remove_event()
         RC_Node.prepare_removal(self)
 
-
     """
     additional stuff for GUI access:
     [everything below is pure ryvencore-qt API]
     """
 
-
     def set_display_title(self, t: str):
         self.display_title = t
         self.update_shape()
-
 
     def flow_view(self):
         """Returns the registered FlowView of the parent script, but None if the view isn't existent
         which can happen if you call this early"""
 
         return self.session.flow_views[self.flow.script] if self.flow.script in self.session.flow_views else None
-
 
     def main_widget(self):
         """Returns the main_widget object, or None if the item doesn't exist (yet)"""
@@ -220,22 +212,18 @@ class Node(RC_Node, QObject):
         else:
             return None
 
-
     def has_main_widget(self):
         return self.main_widget() is not None
-
 
     def input_widget(self, index: int):
         """Returns a reference to the widget of the corresponding input"""
 
         return self.port_item(self.inputs[index]).widget
 
-
     def session_stylesheet(self) -> str:
         """Returns the registered stylesheet of the session"""
 
         return self.session.design.global_stylesheet
-
 
     def port_item(self, port_obj):
         """Returns the port item object associated with a given port object"""
@@ -246,12 +234,10 @@ class Node(RC_Node, QObject):
             return self.item.outputs[self.outputs.index(port_obj)]
         return None
 
-
     def update_shape(self):
         """Causes recompilation of the whole shape of the GUI item."""
 
         self.update_shape_triggered.emit()
-
 
     def hide_unconnected_ports(self):
         """Causes the GUI item to hide all unconnected ports"""
@@ -260,14 +246,12 @@ class Node(RC_Node, QObject):
         self.default_actions['show unconnected ports'] = {'method': self.show_unconnected_ports}
         self.hide_unconnected_ports_triggered.emit()
 
-
     def show_unconnected_ports(self):
         """Causes the GUI item to show all unconnected ports that have been hidden previously"""
 
         del self.default_actions['show unconnected ports']
         self.default_actions['hide unconnected ports'] = {'method': self.hide_unconnected_ports}
         self.show_unconnected_ports_triggered.emit()
-
 
     def change_title(self):
         from qtpy.QtWidgets import QDialog, QVBoxLayout, QLineEdit

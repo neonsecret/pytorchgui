@@ -2,7 +2,7 @@ from qtpy.QtWidgets import QWidget, QApplication
 from qtpy.QtCore import QObject, Signal, Qt
 
 from ..GUIBase import GUIBase
-from ..SessionThreadInterface import SessionThreadInterface_Backend
+from ..SessionThreadInterface import SessionThreadInterfaceBackend
 from ..Design import Design
 from ..flows.FlowView import FlowView
 from ..utils import translate_project
@@ -32,7 +32,7 @@ class Session(RC_Session, QObject):
         self.gui_parent = gui_parent
 
         # notice: true treading is currently not supported
-        self.threading_bridge__backend = SessionThreadInterface_Backend()
+        self.threading_bridge__backend = SessionThreadInterfaceBackend()
         self.threading_bridge__frontend = self.threading_bridge__backend.frontend
         # self.threading_bridge__frontend.moveToThread(gui_parent.thread() if threaded else self.thread())
 

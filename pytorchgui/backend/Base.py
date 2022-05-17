@@ -53,6 +53,7 @@ class Base:
 
     # events
     events = {}
+
     # format: {event_name : tuple_of_arguments}
     # the arguments tuple only serves documentation purposes
 

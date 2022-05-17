@@ -116,7 +116,6 @@ class Design(QObject):
 
         self.flow_theme_changed.emit(self.flow_theme.name)
 
-
     def set_performance_mode(self, new_mode: str):
         self.performance_mode = new_mode
         if new_mode == 'fast':
@@ -131,10 +130,3 @@ class Design(QObject):
 
     def set_node_item_shadows(self, b: bool):
         self.node_item_shadows_enabled = b
-
-
-
-
-
-# default_node_selection_stylesheet = '''
-# '''

@@ -39,11 +39,9 @@ class Script(Base):
         # flow
         self.flow = Flow(self.session, self)
 
-
     def load_flow(self):
         if self.init_flow_data:
             self.flow.load(self.init_flow_data)
-
 
     def data(self) -> dict:
         return {

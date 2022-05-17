@@ -12,7 +12,7 @@ from qtpy.QtCore import QObject, Signal
 from .utils import Container, wait_until
 
 
-class SessionThreadInterface_Backend(QObject):
+class SessionThreadInterfaceBackend(QObject):
     """lives in the session's thread"""
 
     run_signal = Signal(object, object, object)
@@ -55,7 +55,7 @@ class SessionThreadInterface_Frontend(QObject):
 
     run_signal = Signal(object, object, object, object)
 
-    def __init__(self, backend_component: SessionThreadInterface_Backend):
+    def __init__(self, backend_component: SessionThreadInterfaceBackend):
         super().__init__()
 
         self.backend = backend_component

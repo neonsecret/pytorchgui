@@ -51,7 +51,7 @@ class Node(Base):
     """
 
     @classmethod
-    def build_identifier(cls):
+    def build_identifier(cls, device):
         """
         sets the identifier to class name if it's not set, and adds the identifier prefix
         """
@@ -64,6 +64,8 @@ class Node(Base):
             cls.identifier = cls.__name__
 
         cls.identifier = prefix + cls.identifier
+
+        cls.device = device
 
         # notice that we do not touch the identifier compatibility fields
 
@@ -196,7 +198,7 @@ class Node(Base):
             try:
                 self.update_event(inp)
             except Exception as e:
-                InfoMsgs.write_err('EXCEPTION in', self.title, '\n', traceback.format_exc())
+                InfoMsgs.write_err('EXCEPTION in', self.title, '\n', e)
 
     def input(self, index: int):
         """Returns the value of a data input.

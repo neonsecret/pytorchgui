@@ -1,6 +1,5 @@
 from .Base import Base, Event
 
-
 from .Script import Script
 from .InfoMsgs import InfoMsgs
 
@@ -31,29 +30,25 @@ class Session(Base):
         self.gui: bool = gui
         self.init_data = None
 
-
-    def register_nodes(self, node_classes: List):
+    def register_nodes(self, node_classes: List, device):
         """Registers a list of Nodes which then become available in the flows"""
 
         for n in node_classes:
-            self.register_node(n)
+            self.register_node(n, device)
 
-
-    def register_node(self, node_class):
+    def register_node(self, node_class, device):
         """Registers a single Node which then becomes available in the flows"""
 
         # build node class identifier
-        node_class.build_identifier()
+        node_class.build_identifier(device)
 
         self.nodes.append(node_class)
-
 
     def unregister_node(self, node_class):
         """Unregisters a Node which will then be removed from the available list.
         Existing instances won't be affected."""
 
         self.nodes.remove(node_class)
-
 
     def all_node_objects(self) -> List:
         """Returns a list of all Node objects instantiated in any flow"""
@@ -63,7 +58,6 @@ class Session(Base):
             for n in s.flow.nodes:
                 nodes.append(n)
         return nodes
-
 
     def create_script(self, title: str = None, create_default_logs=True,
                       data: Dict = None) -> Script:
@@ -82,7 +76,6 @@ class Session(Base):
 
         return script
 
-
     def rename_script(self, script: Script, title: str) -> bool:
         """Renames an existing script and returns success boolean"""
 
@@ -96,7 +89,6 @@ class Session(Base):
 
         return success
 
-
     def script_title_valid(self, title: str) -> bool:
         """Checks whether a considered title for a new script is valid (unique) or not"""
 
@@ -108,7 +100,6 @@ class Session(Base):
 
         return True
 
-
     def delete_script(self, script: Script):
         """Removes an existing script."""
 
@@ -116,17 +107,13 @@ class Session(Base):
 
         self.script_deleted.emit(script)
 
-
     def info_messenger(self):
         """Returns a reference to InfoMsgs to print info data"""
 
         return InfoMsgs
 
-
     def load(self, project: Dict) -> List[Script]:
         """Loads a project and raises an exception if required nodes are missing"""
-
-        # TODO: perform validity checks
 
         self.init_data = project
 
@@ -140,7 +127,6 @@ class Session(Base):
         """Returns the project as JSON compatible dict to be saved and loaded again using load()"""
 
         return self.complete_data(self.data())
-
 
     def data(self) -> dict:
         return {

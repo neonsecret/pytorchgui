@@ -91,7 +91,6 @@ class NodeInput(NodePort):
         return data
 
 
-
 class NodeOutput(NodePort):
     def __init__(self, node, type_, label_str=''):
         super().__init__(node, PortObjPos.OUTPUT, type_, label_str)

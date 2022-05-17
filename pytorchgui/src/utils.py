@@ -49,26 +49,28 @@ def shorten(s: str, max_chars: int, line_break: bool = False):
     if l > max_chars:
         insert = ' . . . '
         if line_break:
-            insert = '\n'+insert+'\n'
+            insert = '\n' + insert + '\n'
         insert_length = len(insert)
-        left = s[:round((max_chars-insert_length)/2)]
-        right = s[round(l-((max_chars-insert_length)/2)):]
-        return left+insert+right
+        left = s[:round((max_chars - insert_length) / 2)]
+        right = s[round(l - ((max_chars - insert_length) / 2)):]
+        return left + insert + right
     else:
         return s
 
 
 def pointF_mapped(p1, p2):
     """adds the floating part of p2 to p1"""
-    p2.setX(p1.x() + p2.x()%1)
-    p2.setY(p1.y() + p2.y()%1)
+    p2.setX(p1.x() + p2.x() % 1)
+    p2.setY(p1.y() + p2.y() % 1)
     return p2
 
+
 def points_dist(p1, p2):
-    return sqrt(abs(p1.x() - p2.x())**2 + abs(p1.y() - p2.y())**2)
+    return sqrt(abs(p1.x() - p2.x()) ** 2 + abs(p1.y() - p2.y()) ** 2)
+
 
 def middle_point(p1, p2):
-    return QPointF((p1.x() + p2.x())/2, (p1.y() + p2.y())/2)
+    return QPointF((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2)
 
 
 class MovementEnum(enum.Enum):
@@ -87,7 +89,7 @@ def change_svg_color(filepath: str, color_hex: str):
 
     with open(filepath) as f:
         data = f.read()
-    data = data.replace('fill:#000000', 'fill:'+color_hex)
+    data = data.replace('fill:#000000', 'fill:' + color_hex)
     with open(filepath, 'w') as f:
         f.write(data)
 
@@ -98,55 +100,6 @@ def change_svg_color(filepath: str, color_hex: str):
     svg_renderer.render(pix_painter)
 
     return pix
-
-
-
-    # """
-    # Changes the color of an SVG image and returns a QPixmap
-    #
-    # https://stackoverflow.com/questions/15123544/change-the-color-of-an-svg-in-qt
-    # """
-    #
-    # from qtpy.QtGui import Qt, QPainter
-    # from qtpy.QtXml import QDomDocument, QDomElement
-    # from qtpy.QtSvg import QSvgRenderer
-    # from qtpy.QtGui import QPixmap
-    #
-    #
-    # def change_svg_color__set_attr_recur(elem: QDomElement, strtagname: str, strattr: str, strattrval: str):
-    #
-    #     # if it has the tag name then overwrite desired attribute
-    #     if elem.tagName() == strtagname:
-    #         elem.setAttribute(strattr, strattrval)
-    #
-    #     # loop all children
-    #     for i in range(elem.childNodes().count()):
-    #         if not elem.childNodes().at(i).isElement():
-    #             continue
-    #
-    #         change_svg_color__set_attr_recur(elem.childNodes().at(i).toElement(), strtagname, strattr, strattrval)
-    #
-    #
-    # # open svg resource load contents to qbytearray
-    # f = open(filepath)
-    # data = f.read()
-    # f.close()
-    # # load svg contents to xml document and edit contents
-    # doc = QDomDocument()
-    # doc.setContent(data)
-    # # recursively change color
-    # change_svg_color__set_attr_recur(doc.documentElement(), 'path', 'fill', color_hex)
-    # # create svg renderer with edited contents
-    # svg_renderer = QSvgRenderer(doc.toByteArray())
-    # # create pixmap target (could be a QImage)
-    # pix = QPixmap(svg_renderer.defaultSize())
-    # pix.fill(Qt.transparent)
-    # # create painter to act over pixmap
-    # pix_painter = QPainter(pix)
-    # # use renderer to render over painter which paints on pixmap
-    # svg_renderer.render(pix_painter)
-    #
-    # return pix
 
 
 def translate_project(project: Dict) -> Dict:
@@ -161,8 +114,7 @@ def translate_project(project: Dict) -> Dict:
 
     fixed_scripts = []
 
-    for script in (project['macro scripts']+project['scripts']):
-
+    for script in (project['macro scripts'] + project['scripts']):
         new_script = script.copy()
 
         # remove macro nodes

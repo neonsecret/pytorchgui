@@ -44,7 +44,6 @@ class Flow(Base):
         #   additional data structures for executors
         self.node_successors = {}
 
-
     def load(self, data):
         """Loading a flow from data"""
 
@@ -71,14 +70,12 @@ class Flow(Base):
         for node in blocked_nodes:
             node.block_updates = False
 
-
     def create_nodes_from_data(self, nodes_data: List):
         """Creates Nodes from nodes_data, previously returned by data()"""
 
         nodes = []
 
         for n_c in nodes_data:
-
             # find class
             node_class = node_from_identifier(
                 n_c['identifier'],
@@ -92,7 +89,6 @@ class Flow(Base):
 
         return nodes
 
-
     def create_node(self, node_class, data=None):
         """Creates, adds and returns a new node object"""
 
@@ -102,7 +98,6 @@ class Flow(Base):
         node.initialize()
         self.add_node(node)
         return node
-
 
     def add_node(self, node: Node):
         """Stores a node object and causes the node's place_event()"""
@@ -115,12 +110,10 @@ class Flow(Base):
         # self.emit_event('node added', (node,))    # ALPHA
         self.node_added.emit(node)
 
-
     def node_view_placed(self, node: Node):
         """Triggered after the node's GUI content has been fully initialized"""
 
         node.view_place_event()
-
 
     def remove_node(self, node: Node):
         """Removes a node from internal list without deleting it"""
@@ -132,7 +125,6 @@ class Flow(Base):
 
         # self.emit_event('node removed', (node,))    # ALPHA
         self.node_removed.emit(node)
-
 
     def connect_nodes_from_data(self, nodes: List[Node], data: List):
         connections = []
@@ -156,7 +148,6 @@ class Flow(Base):
 
         return connections
 
-
     def check_connection_validity(self, p1: NodePort, p2: NodePort) -> bool:
         """Checks whether a considered connect action is legal"""
 
@@ -171,7 +162,6 @@ class Flow(Base):
         self.connection_request_valid.emit(valid)
 
         return valid
-
 
     def connect_nodes(self, p1: NodePort, p2: NodePort) -> Connection:
         """Connects nodes or disconnects them if they are already connected"""
@@ -199,7 +189,6 @@ class Flow(Base):
 
         return c
 
-
     def add_connection(self, c: Connection):
         """Adds a connection object"""
 
@@ -214,7 +203,6 @@ class Flow(Base):
 
         # self.emit_event('connection added', (c,))    # ALPHA
         self.connection_added.emit(c)
-
 
     def remove_connection(self, c: Connection):
         """Removes a connection object without deleting it"""
@@ -231,12 +219,10 @@ class Flow(Base):
         # self.emit_event('connection removed', (c,))    # ALPHA
         self.connection_removed.emit(c)
 
-
     def algorithm_mode(self) -> str:
         """Returns the current algorithm mode of the flow as string"""
 
         return FlowAlg.str(self.alg_mode)
-
 
     def set_algorithm_mode(self, mode: str):
         """Sets the algorithm mode of the flow, possible values are 'data' and 'exec'"""
@@ -251,9 +237,8 @@ class Flow(Base):
 
         return True
 
-
     def _update_running_with_executor(self):
-        self.running_with_executor = self.alg_mode in (FlowAlg.DATA_OPT, )
+        self.running_with_executor = self.alg_mode in (FlowAlg.DATA_OPT,)
 
         if self.running_with_executor:
             if self.alg_mode == FlowAlg.DATA_OPT:
@@ -261,10 +246,8 @@ class Flow(Base):
         else:
             self.executor = None
 
-
     def flow_changed(self):
         self.executor_data_opt.flow_changed = True
-
 
     def data(self) -> dict:
         return {
@@ -274,12 +257,10 @@ class Flow(Base):
             'GID': self.GLOBAL_ID,
         }
 
-
     def gen_nodes_data(self, nodes: List[Node]) -> List[dict]:
         """Returns the data dicts of the nodes given"""
 
         return [n.data() for n in nodes]
-
 
     def gen_conns_data(self, nodes: List[Node]) -> List[dict]:
         """Generates the connections data between and relative to the nodes passed"""
